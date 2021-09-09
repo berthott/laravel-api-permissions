@@ -1,0 +1,28 @@
+{
+  "name": "berthott/laravel-api-permissions",
+  "description": "Laravel Helper for API Endpoint Permissions",
+  "license": "MIT",
+  "authors": [
+      {
+          "name": "Jan Bladt",
+          "email": "berthott@web.de"
+      }
+  ],
+  "minimum-stability": "dev",
+  "autoload" : {
+      "psr-4" : {
+          "berthott\\Permissions\\": "src"
+      }
+  },
+  "extra" : {
+      "laravel" : {
+          "providers" : [
+              "berthott\\Permissions\\ApiPermissionsServiceProvider"
+          ]
+      }
+  },
+  "require-dev": {
+    "orchestra/testbench": "^6.0",
+    "phpunit/phpunit": "^9.5"
+  }
+}
