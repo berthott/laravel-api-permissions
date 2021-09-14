@@ -17,9 +17,7 @@ class CreatePermissionsTable extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('controller');
-            $table->string('action');
-            $table->string('name');
+            $table->string('name')->unique();
         });
     }
 

@@ -18,8 +18,8 @@ trait HasPermissions
         if (!$permissions) {
             return;
         }
-        $permissionModels = Permission::getPermissionsFromRouteActions($permissions);
-        $exceptModels = Permission::getPermissionsFromRouteActions($except);
+        $permissionModels = Permission::get($permissions);
+        $exceptModels = Permission::get($except);
         $this->permissions()->attach($permissionModels->filter(function($permission) use ($exceptModels) {
             return !$exceptModels->find($permission->id);
         }));
@@ -36,10 +36,9 @@ trait HasPermissions
     {
         $foundAny = false;
         $foundAll = true;
-        $permissionModels = Permission::getPermissionsFromRouteActions($permissions);
+        $permissionModels = Permission::get($permissions);
         foreach($permissionModels as $instance) {
-            $foundAny = $this->permissions->contains($instance) || 
-                isset($this->roles) ? $this->permissions->contains($instance) : false;
+            $foundAny = $this->permissions->contains($instance);
             if (!$foundAny) {
                 $foundAll = false;
             }

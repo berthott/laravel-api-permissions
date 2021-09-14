@@ -21,8 +21,8 @@ class CheckPermissions
         $user = Auth::user();
         $hasDirectPermissions = PermissionsHelper::hasTrait($user, 'berthott\Permissions\Models\Traits\HasPermissions');
         $hasRolePermissions = PermissionsHelper::hasTrait($user, 'berthott\Permissions\Models\Traits\HasRoles');
-        if ($hasRolePermissions && $user->hasRoleOrDirectPermissions(Route::currentRouteAction()) ||
-            $hasDirectPermissions && $user->hasPermissions(Route::currentRouteAction())) {
+        if ($hasRolePermissions && $user->hasRoleOrDirectPermissions(Route::currentRouteName()) ||
+            $hasDirectPermissions && $user->hasPermissions(Route::currentRouteName())) {
                 return $next($request);
         }
         return response()->json(['error' => 'Unauthorized.'], 403);

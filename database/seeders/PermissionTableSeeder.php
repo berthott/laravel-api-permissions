@@ -19,10 +19,7 @@ class PermissionTableSeeder extends Seeder
             if (!in_array('permissions', $route->action['middleware'])) {
                 continue;
             }
-            $name = explode('@', $route->getActionName());
             Permission::create([
-                'controller' => $name[0],
-                'action' => $name[1],
                 'name' => $route->getName()
             ]);
         }

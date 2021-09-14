@@ -23,32 +23,23 @@ class Permission extends Model
      * @var array
      */
     protected $fillable = [
-        'controller', 'action', 'name',
+        'name',
     ];
 
     /**
      * Get permissions from array.
      * 
-     * @param mixed $array
+     * @param string|string[] $array
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    static public function getPermissionsFromRouteActions($routeActions)
+    static public function get($routeNames)
     {
-        if ($routeActions === '*') return self::all();
+        if ($routeNames === '*') return self::all();
         
-        $routeActions = is_array($routeActions) ? $routeActions : [$routeActions];
+        $routeNames = is_array($routeNames) ? $routeNames : [$routeNames];
         $ret = new Collection();
-        foreach($routeActions as $permission) {
-            if (strpos($permission, '@')) {
-                $action = explode('@', $permission);
-                $ret = $ret->concat(self::query()->where('controller', $action[0])
-                                                 ->when(array_key_exists(1, $action), function($query) use ($action) {
-                                                     return $query->where('action', $action[1]);
-                                                 })->get());
-            } else {
-                $ret = $ret->concat(self::query()->where('name', 'like', "%{$permission}%")->get());
-            }
-            
+        foreach($routeNames as $permission) {
+            $ret = $ret->concat(self::query()->where('name', 'like', "%{$permission}%")->get());
         }
         return $ret;
     }
