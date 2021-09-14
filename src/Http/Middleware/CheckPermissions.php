@@ -5,6 +5,7 @@ namespace berthott\Permissions\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use berthott\Permissions\Facades\PermissionsHelper;
 
 class CheckPermissions
 {
@@ -17,7 +18,14 @@ class CheckPermissions
      */
     public function handle($request, Closure $next)
     {
-        if(!Auth::user()->hasPermissions(Route::currentRouteAction())) return response('No permissions.', 403);
-        return $next($request);
+        $user = Auth::user();
+        $hasDirectPermissions = PermissionsHelper::hasTrait($user, 'berthott\Permissions\Models\Traits\HasPermissions');
+        $hasRolePermissions = PermissionsHelper::hasTrait($user, 'berthott\Permissions\Models\Traits\HasRoles');
+        if ($hasRolePermissions && $user->hasRoleOrDirectPermissions(Route::currentRouteAction()) ||
+            $hasDirectPermissions && $user->hasPermissions(Route::currentRouteAction())) {
+                return $next($request);
+        }
+        return response()->json(['error' => 'Unauthorized.'], 403);
+        
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePermissionableTable extends Migration
+class CreatePermissionablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePermissionableTable extends Migration
      */
     public function up()
     {
-        Schema::create('permissionable', function (Blueprint $table) {
+        Schema::create('permissionables', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('permission_id')->unsigned();
             $table->integer('permissionable_id')->unsigned();
@@ -21,7 +21,7 @@ class CreatePermissionableTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('permissionable', function (Blueprint $table) {
+        Schema::table('permissionables', function (Blueprint $table) {
             $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
         });
     }
