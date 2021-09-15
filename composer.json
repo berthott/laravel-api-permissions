@@ -14,6 +14,12 @@
           "berthott\\Permissions\\": "src"
       }
   },
+  "autoload-dev": {
+      "psr-4": {
+          "Database\\Seeders\\": "database/seeders",
+          "berthott\\Permissions\\Tests\\": "tests"
+      }
+  },
   "extra" : {
       "laravel" : {
           "providers" : [
@@ -22,7 +28,14 @@
       }
   },
   "require-dev": {
+    "berthott/laravel-crudable": "dev-master",
     "orchestra/testbench": "^6.0",
     "phpunit/phpunit": "^9.5"
-  }
+  },
+  "repositories": [
+      {
+          "type": "path",
+          "url": "../../laravel_packages/laravel-crudable"
+      }
+  ]
 }
