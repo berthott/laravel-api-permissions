@@ -13,10 +13,8 @@ class ApiPermissionsServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         // add config
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'permissions');
@@ -29,10 +27,8 @@ class ApiPermissionsServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         // publish config
         $this->publishes([
@@ -41,7 +37,7 @@ class ApiPermissionsServiceProvider extends ServiceProvider
 
         // publish seed
         $this->publishes([
-            __DIR__ . '/../database/seeders/PermissionTableSeeder.php' => database_path('seeders/PermissionTableSeeder.php'),
+            __DIR__.'/../database/seeders/PermissionTableSeeder.php' => database_path('seeders/PermissionTableSeeder.php'),
         ], 'seeders');
 
         // publish migrations
@@ -50,7 +46,7 @@ class ApiPermissionsServiceProvider extends ServiceProvider
         ], 'migrations'); */
 
         // load migrations
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         // add routes
         Route::group($this->routeConfiguration(), function () {
@@ -61,12 +57,12 @@ class ApiPermissionsServiceProvider extends ServiceProvider
         $router = $this->app->make(Router::class);
         $router->aliasMiddleware('permissions', CheckPermissions::class);
     }
-    
-    protected function routeConfiguration()
+
+    protected function routeConfiguration(): array
     {
         return [
             'middleware' => config('permissions.middleware'),
-            'prefix' => config('permissions.prefix')
+            'prefix' => config('permissions.prefix'),
         ];
     }
 }

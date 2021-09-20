@@ -4,8 +4,6 @@ namespace berthott\Permissions\Http\Controllers;
 
 use berthott\Permissions\Models\Permission;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Route;
 
 class PermissionController extends Controller
 {

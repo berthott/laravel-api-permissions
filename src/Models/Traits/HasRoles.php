@@ -2,26 +2,27 @@
 
 namespace berthott\Permissions\Models\Traits;
 
-use berthott\Permissions\Models\Role;
 use berthott\Permissions\Facades\PermissionsHelper;
+use berthott\Permissions\Models\Role;
 
 trait HasRoles
 {
     /**
      * Has a relating role or the user itself the permission.
-     * 
+     *
      * @param mixed $permissions
-     * @param bool  $any
-     * @return void
      */
-    public function hasRoleOrDirectPermissions($permissions, $any = true)
+    public function hasRoleOrDirectPermissions($permissions, bool $any = true): bool
     {
         foreach ($this->roles as $role) {
             $hasPermission = $role->hasPermissions($permissions, $any);
-            if ($hasPermission) return true;
+            if ($hasPermission) {
+                return true;
+            }
         }
-        return PermissionsHelper::hasTrait($this, 'berthott\Permissions\Models\Traits\HasPermissions') 
-            ? $this->hasPermissions($permissions, $any) 
+
+        return PermissionsHelper::hasTrait($this, 'berthott\Permissions\Models\Traits\HasPermissions')
+            ? $this->hasPermissions($permissions, $any)
             : false;
     }
 

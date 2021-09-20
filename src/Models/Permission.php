@@ -2,8 +2,8 @@
 
 namespace berthott\Permissions\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @mixin IdeHelperPermission
@@ -28,19 +28,21 @@ class Permission extends Model
 
     /**
      * Get permissions from array.
-     * 
+     *
      * @param string|string[] $array
-     * @return \Illuminate\Database\Eloquent\Collection
      */
-    static public function get($routeNames)
+    public static function get($routeNames): Collection
     {
-        if ($routeNames === '*') return self::all();
-        
+        if ('*' === $routeNames) {
+            return self::all();
+        }
+
         $routeNames = is_array($routeNames) ? $routeNames : [$routeNames];
         $ret = new Collection();
-        foreach($routeNames as $permission) {
+        foreach ($routeNames as $permission) {
             $ret = $ret->concat(self::query()->where('name', 'like', "%{$permission}%")->get());
         }
+
         return $ret;
     }
 }
