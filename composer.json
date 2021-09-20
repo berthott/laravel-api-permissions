@@ -28,14 +28,8 @@
       }
   },
   "require-dev": {
-    "berthott/laravel-crudable": "dev-master",
+    "berthott/laravel-crudable": "^1.0",
     "orchestra/testbench": "^6.0",
     "phpunit/phpunit": "^9.5"
-  },
-  "repositories": [
-      {
-          "type": "path",
-          "url": "../../laravel_packages/laravel-crudable"
-      }
-  ]
+  }
 }
