@@ -28,7 +28,7 @@
       }
   },
   "require-dev": {
-    "berthott/laravel-crudable": "^1.0",
+    "berthott/laravel-crudable": "dev-master",
     "orchestra/testbench": "^6.0",
     "phpunit/phpunit": "^9.5"
   }
