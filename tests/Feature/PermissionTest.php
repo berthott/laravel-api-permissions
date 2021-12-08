@@ -42,6 +42,9 @@ class PermissionTest extends TestCase
         $user = $this->createUserWithPermissions();
         foreach ($permissions as $permission) {
             $route = Route::getRoutes()->getByName($permission);
+            if (in_array(explode('.', $route->getName())[1], config('permissions.ignoreActions'))) {
+                continue;
+            }
             foreach ($route->methods() as $method) {
                 $this->actingAs($user)->json($method, route($permission, ['user' => $user->id, 'name' => Str::random(5)]))->assertForbidden();
             }
@@ -55,6 +58,9 @@ class PermissionTest extends TestCase
         $entity = Entity::create(['name' => 'Test']);
         foreach ($permissions as $permission) {
             $route = Route::getRoutes()->getByName($permission);
+            if (in_array(explode('.', $route->getName())[1], config('permissions.ignoreActions'))) {
+                continue;
+            }
             foreach ($route->methods() as $method) {
                 $this->actingAs($user)->json($method, route($permission, ['entity' => $entity->id, 'name' => Str::random(5)]))->assertForbidden();
             }
@@ -80,6 +86,7 @@ class PermissionTest extends TestCase
             ->assertStatus(200)
             ->assertJsonFragment(['name' => 'users.index'])
             ->assertJsonFragment(['name' => 'entities.index'])
-            ->assertJsonMissing(['name' => 'ignore_entities.index']);
+            ->assertJsonMissing(['name' => 'ignore_entities.index'])
+            ->assertJsonMissing(['name' => 'users.schema']);
     }
 }

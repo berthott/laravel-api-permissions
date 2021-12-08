@@ -16,7 +16,7 @@ class PermissionController extends Controller
     public function index()
     {
         return Permission::all()->filter(function ($permission) {
-            return !IgnorePermissions::isIgnored(explode('.', $permission->name)[0]);
+            return !IgnorePermissions::isIgnored($permission->name);
         });
     }
 }

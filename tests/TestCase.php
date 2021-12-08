@@ -22,9 +22,9 @@ abstract class TestCase extends BaseTestCase
     protected function getPackageProviders($app)
     {
         return [
-      ApiPermissionsServiceProvider::class,
-      CrudableServiceProvider::class
-    ];
+          ApiPermissionsServiceProvider::class,
+          CrudableServiceProvider::class
+      ];
     }
 
     protected function getEnvironmentSetUp($app)
@@ -32,8 +32,9 @@ abstract class TestCase extends BaseTestCase
         $this->setUpUserTable();
         $this->setUpMigrationTables();
         Config::set('crudable.namespace', __NAMESPACE__);
-        Config::set('permissions.namespace', __NAMESPACE__);
         Config::set('crudable.middleware', ['permissions']);
+        Config::set('permissions.namespace', __NAMESPACE__);
+        Config::set('permissions.ignoreActions', ['schema']);
     }
 
     private function setUpUserTable(): void

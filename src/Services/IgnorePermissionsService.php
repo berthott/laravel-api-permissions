@@ -6,6 +6,7 @@ use HaydenPierce\ClassFinder\ClassFinder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Route;
 
 class IgnorePermissionsService
 {
@@ -50,30 +51,21 @@ class IgnorePermissionsService
     }
 
     /**
-     * Get the target model.
-     */
-    public function getTarget(): string
-    {
-        if (!request()->segments() || $this->classes->isEmpty()) {
-            return '';
-        }
-        $model = Str::studly(Str::singular(request()->segment(count(explode('/', config('permissions.prefix'))) + 1)));
-
-        return $this->classes->first(function ($class) use ($model) {
-            return Arr::last(explode('\\', $class)) === $model;
-        }) ?: '';
-    }
-
-    /**
      * Get the table ignored?
      */
-    public function isIgnored(string $table): bool
+    public function isIgnored(string $routeName): bool
     {
         if ($this->classes->isEmpty()) {
             return false;
         }
 
-        $model = Str::studly(Str::singular($table));
+        $routeArray = explode('.', $routeName);
+
+        if (in_array($routeArray[1], config('permissions.ignoreActions'))) {
+            return true;
+        }
+
+        $model = Str::studly(Str::singular($routeArray[0]));
         return $this->classes->first(function ($class) use ($model) {
             return Arr::last(explode('\\', $class)) === $model;
         }) ?: false;

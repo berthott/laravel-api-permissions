@@ -34,4 +34,15 @@ return [
     */
 
     'prefix' => 'api',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Actions to ignore
+    |--------------------------------------------------------------------------
+    |
+    | Defines an array of actions that should be irgnored by default.
+    |
+    */
+
+    'ignoreActions' => [],
 ];

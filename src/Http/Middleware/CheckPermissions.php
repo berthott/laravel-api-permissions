@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 class CheckPermissions
 {
@@ -21,10 +21,7 @@ class CheckPermissions
         $routeName = Route::currentRouteName();
         $hasDirectPermissions = PermissionsHelper::hasTrait($user, 'berthott\Permissions\Models\Traits\HasPermissions');
         $hasRolePermissions = PermissionsHelper::hasTrait($user, 'berthott\Permissions\Models\Traits\HasRoles');
-        $ignorePermissions = false;
-        if ($requestedModel = IgnorePermissions::getTarget()) {
-            $ignorePermissions = PermissionsHelper::hasTrait($requestedModel, 'berthott\Permissions\Models\Traits\IgnorePermissions');
-        }
+        $ignorePermissions = IgnorePermissions::isIgnored($routeName);
         if ($ignorePermissions ||
             $hasRolePermissions && $user->hasRoleOrDirectPermissions($routeName) ||
             $hasDirectPermissions && $user->hasPermissions($routeName)) {
