@@ -3,6 +3,8 @@
 namespace berthott\Permissions\Tests\Feature;
 
 use berthott\Permissions\Models\Permission;
+use berthott\Permissions\Tests\Entity;
+use berthott\Permissions\Tests\IgnoreEntity;
 use Illuminate\Support\Facades\Route;
 use berthott\Permissions\Tests\TestCase;
 use Illuminate\Support\Str;
@@ -22,26 +24,52 @@ class PermissionTest extends TestCase
         ]);
     }
 
-    public function test_all_permissions_successfully()
+    public function test_all_user_permissions_successfully()
     {
         $permissions = Permission::where('name', 'like', 'users%')->get()->pluck('name')->toArray();
         $user = $this->createUserWithPermissions($permissions);
-        foreach($permissions as $permission) {
+        foreach ($permissions as $permission) {
             $route = Route::getRoutes()->getByName($permission);
-            foreach($route->methods() as $method) {
+            foreach ($route->methods() as $method) {
                 $this->actingAs($user)->json($method, route($permission, ['user' => $user->id, 'name' => Str::random(5)]))->assertSuccessful();
             }
         };
     }
 
-    public function test_all_permissions_fail()
+    public function test_all_user_permissions_fail()
     {
         $permissions = Permission::where('name', 'like', 'users%')->get()->pluck('name')->toArray();
         $user = $this->createUserWithPermissions();
-        foreach($permissions as $permission) {
+        foreach ($permissions as $permission) {
             $route = Route::getRoutes()->getByName($permission);
-            foreach($route->methods() as $method) {
+            foreach ($route->methods() as $method) {
                 $this->actingAs($user)->json($method, route($permission, ['user' => $user->id, 'name' => Str::random(5)]))->assertForbidden();
+            }
+        };
+    }
+
+    public function test_all_entity_permissions_fail()
+    {
+        $permissions = Permission::where('name', 'like', 'entities%')->get()->pluck('name')->toArray();
+        $user = $this->createUserWithPermissions();
+        $entity = Entity::create(['name' => 'Test']);
+        foreach ($permissions as $permission) {
+            $route = Route::getRoutes()->getByName($permission);
+            foreach ($route->methods() as $method) {
+                $this->actingAs($user)->json($method, route($permission, ['entity' => $entity->id, 'name' => Str::random(5)]))->assertForbidden();
+            }
+        };
+    }
+
+    public function test_all_ignore_entities_permissions_succeed()
+    {
+        $permissions = Permission::where('name', 'like', 'ignore_entities%')->get()->pluck('name')->toArray();
+        $user = $this->createUserWithPermissions();
+        $ignore_entity = IgnoreEntity::create(['name' => 'Test']);
+        foreach ($permissions as $permission) {
+            $route = Route::getRoutes()->getByName($permission);
+            foreach ($route->methods() as $method) {
+                $this->actingAs($user)->json($method, route($permission, ['ignore_entity' => $ignore_entity->id, 'name' => Str::random(5)]))->assertSuccessful();
             }
         };
     }
