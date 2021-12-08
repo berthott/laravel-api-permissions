@@ -73,4 +73,13 @@ class PermissionTest extends TestCase
             }
         };
     }
+
+    public function test_permissions_route()
+    {
+        $this->get(route('permissions.index'))
+            ->assertStatus(200)
+            ->assertJsonFragment(['name' => 'users.index'])
+            ->assertJsonFragment(['name' => 'entities.index'])
+            ->assertJsonMissing(['name' => 'ignore_entities.index']);
+    }
 }

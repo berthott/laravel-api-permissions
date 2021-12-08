@@ -63,4 +63,19 @@ class IgnorePermissionsService
             return Arr::last(explode('\\', $class)) === $model;
         }) ?: '';
     }
+
+    /**
+     * Get the table ignored?
+     */
+    public function isIgnored(string $table): bool
+    {
+        if ($this->classes->isEmpty()) {
+            return false;
+        }
+
+        $model = Str::studly(Str::singular($table));
+        return $this->classes->first(function ($class) use ($model) {
+            return Arr::last(explode('\\', $class)) === $model;
+        }) ?: false;
+    }
 }
