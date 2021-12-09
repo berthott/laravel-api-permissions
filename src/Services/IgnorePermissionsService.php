@@ -55,14 +55,13 @@ class IgnorePermissionsService
      */
     public function isIgnored(string $routeName): bool
     {
-        if ($this->classes->isEmpty()) {
-            return false;
-        }
-
         $routeArray = explode('.', $routeName);
-
         if (in_array($routeArray[1], config('permissions.ignoreActions'))) {
             return true;
+        }
+
+        if ($this->classes->isEmpty()) {
+            return false;
         }
 
         $model = Str::studly(Str::singular($routeArray[0]));
