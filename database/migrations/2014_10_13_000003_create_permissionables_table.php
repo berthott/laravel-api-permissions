@@ -18,7 +18,6 @@ class CreatePermissionablesTable extends Migration
             $table->integer('permission_id')->unsigned();
             $table->integer('permissionable_id')->unsigned();
             $table->string('permissionable_type');
-            $table->timestamps();
         });
 
         Schema::table('permissionables', function (Blueprint $table) {
