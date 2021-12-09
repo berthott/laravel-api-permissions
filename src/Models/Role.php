@@ -14,6 +14,13 @@ class Role extends Model
     use Crudable;
     use HasPermissions;
 
+    public static function attachables(): array
+    {
+        return [
+            'permissions'
+        ];
+    }
+
     /**
      * The attributes that are mass assignable.
      *
