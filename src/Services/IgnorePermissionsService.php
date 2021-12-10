@@ -39,7 +39,7 @@ class IgnorePermissionsService
         $classes = [];
         $namespaces = config('permissions.namespace');
         foreach (is_array($namespaces) ? $namespaces : [$namespaces] as $namespace) {
-            foreach (ClassFinder::getClassesInNamespace($namespace) as $class) {
+            foreach (ClassFinder::getClassesInNamespace($namespace, ClassFinder::RECURSIVE_MODE) as $class) {
                 foreach (class_uses_recursive($class) as $trait) {
                     if ('berthott\Permissions\Models\Traits\IgnorePermissions' == $trait) {
                         array_push($classes, $class);
