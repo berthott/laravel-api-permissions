@@ -6,7 +6,9 @@ use HaydenPierce\ClassFinder\ClassFinder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Cache;
+
+const CACHE_KEY = 'IgnorePermissionsService-Cache-Key';
 
 class IgnorePermissionsService
 {
@@ -36,18 +38,20 @@ class IgnorePermissionsService
      */
     private function initClasses(): void
     {
-        $classes = [];
-        $namespaces = config('permissions.namespace');
-        foreach (is_array($namespaces) ? $namespaces : [$namespaces] as $namespace) {
-            foreach (ClassFinder::getClassesInNamespace($namespace, ClassFinder::RECURSIVE_MODE) as $class) {
-                foreach (class_uses_recursive($class) as $trait) {
-                    if ('berthott\Permissions\Models\Traits\IgnorePermissions' == $trait) {
-                        array_push($classes, $class);
+        $this->classes = Cache::sear(CACHE_KEY, function () {
+            $classes = [];
+            $namespaces = config('permissions.namespace');
+            foreach (is_array($namespaces) ? $namespaces : [$namespaces] as $namespace) {
+                foreach (ClassFinder::getClassesInNamespace($namespace, ClassFinder::RECURSIVE_MODE) as $class) {
+                    foreach (class_uses_recursive($class) as $trait) {
+                        if ('berthott\Permissions\Models\Traits\IgnorePermissions' == $trait) {
+                            array_push($classes, $class);
+                        }
                     }
                 }
             }
-        }
-        $this->classes = collect($classes);
+            return collect($classes);
+        });
     }
 
     /**
