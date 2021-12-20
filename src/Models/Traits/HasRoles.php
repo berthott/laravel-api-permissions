@@ -9,10 +9,8 @@ trait HasRoles
 {
     /**
      * Has a relating role or the user itself the permission.
-     *
-     * @param mixed $permissions
      */
-    public function hasRoleOrDirectPermissions($permissions, bool $any = true): bool
+    public function hasRoleOrDirectPermissions(mixed $permissions, bool $any = true): bool
     {
         foreach ($this->roles as $role) {
             $hasPermission = $role->hasPermissions($permissions, $any);

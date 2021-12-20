@@ -8,13 +8,8 @@ trait HasPermissions
 {
     /**
      * Add permissions to this model.
-     *
-     * @param mixed $permissions
-     * @param mixed $except
-     *
-     * @return void
      */
-    public function addPermissions($permissions, $except = []): void
+    public function addPermissions(mixed $permissions, mixed $except = []): void
     {
         if (!$permissions) {
             return;
@@ -28,13 +23,8 @@ trait HasPermissions
 
     /**
      * Has this role the given permissions.
-     *
-     * @param mixed $permissions
-     * @param bool  $any
-     *
-     * @return void
      */
-    public function hasPermissions($permissions, $any = true)
+    public function hasPermissions(mixed $permissions, bool $any = true)
     {
         $foundAny = false;
         $foundAll = true;
