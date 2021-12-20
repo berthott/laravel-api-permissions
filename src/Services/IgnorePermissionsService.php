@@ -69,8 +69,14 @@ class IgnorePermissionsService
         }
 
         $model = Str::studly(Str::singular($routeArray[0]));
-        return $this->classes->first(function ($class) use ($model) {
+        if ($modelWithNamespace = $this->classes->first(function ($class) use ($model) {
             return Arr::last(explode('\\', $class)) === $model;
-        }) ?: false;
+        })) {
+            if (count($modelWithNamespace::ignoreOnly())) {
+                return in_array($routeArray[1], $modelWithNamespace::ignoreOnly());
+            }
+            return true;
+        }
+        return false;
     }
 }

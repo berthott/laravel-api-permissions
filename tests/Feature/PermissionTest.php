@@ -58,11 +58,13 @@ class PermissionTest extends TestCase
         $entity = Entity::create(['name' => 'Test']);
         foreach ($permissions as $permission) {
             $route = Route::getRoutes()->getByName($permission);
-            if (in_array(explode('.', $route->getName())[1], config('permissions.ignoreActions'))) {
-                continue;
-            }
             foreach ($route->methods() as $method) {
-                $this->actingAs($user)->json($method, route($permission, ['entity' => $entity->id, 'name' => Str::random(5)]))->assertForbidden();
+                $response = $this->actingAs($user)->json($method, route($permission, ['entity' => $entity->id, 'name' => Str::random(5)]));
+                if (in_array(explode('.', $route->getName())[1], array_merge(config('permissions.ignoreActions')))) {
+                    $response->assertSuccessful();
+                } else {
+                    $response->assertForbidden();
+                }
             }
         };
     }
@@ -75,7 +77,12 @@ class PermissionTest extends TestCase
         foreach ($permissions as $permission) {
             $route = Route::getRoutes()->getByName($permission);
             foreach ($route->methods() as $method) {
-                $this->actingAs($user)->json($method, route($permission, ['ignore_entity' => $ignore_entity->id, 'name' => Str::random(5)]))->assertSuccessful();
+                $response = $this->actingAs($user)->json($method, route($permission, ['ignore_entity' => $ignore_entity->id, 'name' => Str::random(5)]));
+                if (in_array(explode('.', $route->getName())[1], array_merge(config('permissions.ignoreActions'), IgnoreEntity::ignoreOnly()))) {
+                    $response->assertSuccessful();
+                } else {
+                    $response->assertForbidden();
+                }
             }
         };
     }

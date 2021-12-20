@@ -18,4 +18,12 @@ class IgnoreEntity extends Authenticatable
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * Only ignore the following actions
+     */
+    public static function ignoreOnly(): array
+    {
+        return ['index'];
+    }
 }
