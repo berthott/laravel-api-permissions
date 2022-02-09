@@ -3,6 +3,7 @@
 namespace berthott\Permissions\Models;
 
 use berthott\Crudable\Models\Traits\Crudable;
+use berthott\ApiCache\Models\Traits\FlushesApiCache;
 use berthott\Permissions\Models\Traits\HasPermissions;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     use Crudable;
+    use FlushesApiCache;
     use HasPermissions;
 
     public static function attachables(): array
