@@ -2,6 +2,7 @@
 
 namespace berthott\Permissions\Tests;
 
+use berthott\ApiCache\ApiCacheServiceProvider;
 use berthott\Crudable\CrudableServiceProvider;
 use berthott\Permissions\ApiPermissionsServiceProvider;
 use berthott\Permissions\Models\Role;
@@ -23,6 +24,7 @@ abstract class TestCase extends BaseTestCase
     {
         return [
           ApiPermissionsServiceProvider::class,
+          ApiCacheServiceProvider::class,
           CrudableServiceProvider::class
       ];
     }

@@ -30,6 +30,9 @@ class PermissionTest extends TestCase
         $user = $this->createUserWithPermissions($permissions);
         foreach ($permissions as $permission) {
             $route = Route::getRoutes()->getByName($permission);
+            if (in_array(explode('.', $route->getName())[1], ['destroy_many'])) {
+                continue;
+            }
             foreach ($route->methods() as $method) {
                 $this->actingAs($user)->json($method, route($permission, ['user' => $user->id, 'name' => Str::random(5)]))->assertSuccessful();
             }
