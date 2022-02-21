@@ -7,6 +7,7 @@ use berthott\Permissions\Tests\Entity;
 use berthott\Permissions\Tests\IgnoreEntity;
 use Illuminate\Support\Facades\Route;
 use berthott\Permissions\Tests\TestCase;
+use Database\Seeders\PermissionTableSeeder;
 use Illuminate\Support\Str;
 
 class PermissionTest extends TestCase
@@ -98,5 +99,11 @@ class PermissionTest extends TestCase
             ->assertJsonFragment(['name' => 'entities.index'])
             ->assertJsonMissing(['name' => 'ignore_entities.index'])
             ->assertJsonMissing(['name' => 'users.schema']);
+    }
+
+    public function test_permissions_seeder()
+    {
+        $this->assertDatabaseHas('permissions', ['name' => 'entities.index']);
+        $this->assertDatabaseMissing('permissions', ['name' => 'ignore_entities.index']);
     }
 }

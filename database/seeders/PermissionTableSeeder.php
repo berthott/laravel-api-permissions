@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use berthott\Permissions\Facades\IgnorePermissions;
 use berthott\Permissions\Models\Permission;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Route;
@@ -15,9 +16,10 @@ class PermissionTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Route::getRoutes() as $route) {
+        $routes = Route::getRoutes();
+        foreach ($routes as $route) {
             if (!in_array('permissions', $route->action['middleware']) ||
-                in_array(explode('.', $route->getName())[1], config('permissions.ignoreActions'))) {
+                IgnorePermissions::isIgnored($route->getName())) {
                 continue;
             }
             Permission::create([
