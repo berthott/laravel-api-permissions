@@ -69,11 +69,11 @@ abstract class TestCase extends BaseTestCase
         (new \CreatePermissionablesTable)->up();
     }
 
-    public static function createUserWithPermissions($permissions = ''): User
+    public static function createUserWithPermissions($permissions = '', $except = []): User
     {
         $user = User::create(['name' => 'Test']);
         $role = Role::create(['title' => 'Test']);
-        $role->addPermissions($permissions);
+        $role->addPermissions($permissions, $except);
         $user->roles()->attach($role);
         $user->load('roles');
         return $user;

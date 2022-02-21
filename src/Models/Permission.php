@@ -31,7 +31,7 @@ class Permission extends Model
      *
      * @param string|string[] $array
      */
-    public static function get($routeNames): Collection
+    public static function get($routeNames, bool $strict = false): Collection
     {
         if ('*' === $routeNames) {
             return self::all();
@@ -40,7 +40,10 @@ class Permission extends Model
         $routeNames = is_array($routeNames) ? $routeNames : [$routeNames];
         $ret = new Collection();
         foreach ($routeNames as $permission) {
-            $ret = $ret->concat(self::query()->where('name', 'like', "%{$permission}%")->get());
+            $entries = $strict
+                ? self::query()->where('name', $permission)->get()
+                : self::query()->where('name', 'like', "%{$permission}%")->get();
+            $ret = $ret->concat($entries);
         }
 
         return $ret;

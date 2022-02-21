@@ -28,7 +28,7 @@ trait HasPermissions
     {
         $foundAny = false;
         $foundAll = true;
-        $permissionModels = Permission::get($permissions);
+        $permissionModels = Permission::get($permissions, true);
         foreach ($permissionModels as $instance) {
             $foundAny = $this->permissions->contains($instance);
             if (!$foundAny) {

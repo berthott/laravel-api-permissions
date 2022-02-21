@@ -106,4 +106,18 @@ class PermissionTest extends TestCase
         $this->assertDatabaseHas('permissions', ['name' => 'entities.index']);
         $this->assertDatabaseMissing('permissions', ['name' => 'ignore_entities.index']);
     }
+
+    public function test_strict_permissions_too_much()
+    {
+        $entity = Entity::create(['name' => 'Test']);
+        $deleteUser = $this->createUserWithPermissions('entities.destroy', ['entities.destroy_many']);
+        $this->actingAs($deleteUser)->delete(route('entities.destroy_many'), ['ids' => [$entity->id]])->assertStatus(403);
+    }
+
+    public function test_strict_permissions_too_few()
+    {
+        $entity = Entity::create(['name' => 'Test']);
+        $deleteManyUser = $this->createUserWithPermissions('entities.destroy_many');
+        $this->actingAs($deleteManyUser)->delete(route('entities.destroy', ['entity' => $entity->id]))->assertStatus(403);
+    }
 }

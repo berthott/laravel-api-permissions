@@ -16,8 +16,7 @@ class PermissionTableSeeder extends Seeder
      */
     public function run()
     {
-        $routes = Route::getRoutes();
-        foreach ($routes as $route) {
+        foreach (Route::getRoutes() as $route) {
             if (!in_array('permissions', $route->action['middleware']) ||
                 IgnorePermissions::isIgnored($route->getName())) {
                 continue;
