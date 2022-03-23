@@ -28,8 +28,8 @@
       }
   },
   "require-dev": {
-    "berthott/laravel-api-cache": "^1.0|@dev",
-    "berthott/laravel-crudable": "^1.0|@dev",
+    "berthott/laravel-api-cache": "^2.0",
+    "berthott/laravel-crudable": "^2.0",
     "orchestra/testbench": "^7.0",
     "phpunit/phpunit": "^9.5",
     "doctrine/dbal": "^3.3"
