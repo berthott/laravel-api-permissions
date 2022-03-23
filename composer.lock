@@ -4,21 +4,28 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb8ec32a42dbc2c7ef82661f9d45d131",
+    "content-hash": "52a24e568c0b589f65cd1f9f05482afa",
     "packages": [],
     "packages-dev": [
         {
             "name": "berthott/laravel-api-cache",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/berthott/laravel-api-cache.git",
+                "reference": "ccc0bfe0ee02eedd93ffa4f85ad443711a79e6b2"
+            },
             "dist": {
-                "type": "path",
-                "url": "../../laravel_packages/laravel-api-cache",
-                "reference": "b3406edda896175ff483635eb7b3b5af35568189"
+                "type": "zip",
+                "url": "https://api.github.com/repos/berthott/laravel-api-cache/zipball/ccc0bfe0ee02eedd93ffa4f85ad443711a79e6b2",
+                "reference": "ccc0bfe0ee02eedd93ffa4f85ad443711a79e6b2",
+                "shasum": ""
             },
             "require-dev": {
                 "orchestra/testbench": "^7.0",
                 "phpunit/phpunit": "^9.5"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -32,11 +39,7 @@
                     "berthott\\ApiCache\\": "src"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "berthott\\ApiCache\\Tests\\": "tests"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -47,25 +50,31 @@
                 }
             ],
             "description": "Laravel Helper for Caching API Responses",
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/berthott/laravel-api-cache/issues",
+                "source": "https://github.com/berthott/laravel-api-cache/tree/2.0.0"
+            },
+            "time": "2022-03-23T13:47:27+00:00"
         },
         {
             "name": "berthott/laravel-crudable",
-            "version": "dev-master",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/berthott/laravel-crudable.git",
+                "reference": "1f0f8353aedd3c8935b02f089bf9c2efd9c687fb"
+            },
             "dist": {
-                "type": "path",
-                "url": "../../laravel_packages/laravel-crudable",
-                "reference": "53303e1cd0205a4d689b64956a082454e71d286f"
+                "type": "zip",
+                "url": "https://api.github.com/repos/berthott/laravel-crudable/zipball/1f0f8353aedd3c8935b02f089bf9c2efd9c687fb",
+                "reference": "1f0f8353aedd3c8935b02f089bf9c2efd9c687fb",
+                "shasum": ""
             },
             "require": {
-                "haydenpierce/class-finder": "^0.4.3",
-                "spatie/laravel-query-builder": "^5.0"
+                "haydenpierce/class-finder": "dev-master"
             },
             "require-dev": {
-                "doctrine/dbal": "^3.3",
-                "orchestra/testbench": "^7.0",
+                "orchestra/testbench": "^6.0",
                 "phpunit/phpunit": "^9.5"
             },
             "type": "library",
@@ -81,11 +90,7 @@
                     "berthott\\Crudable\\": "src"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "berthott\\Crudable\\Tests\\": "tests"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -96,9 +101,11 @@
                 }
             ],
             "description": "Laravel Helper for CRUD Resources",
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/berthott/laravel-crudable/issues",
+                "source": "https://github.com/berthott/laravel-crudable/tree/1.0.2"
+            },
+            "time": "2021-09-24T13:16:30+00:00"
         },
         {
             "name": "brick/math",
@@ -1321,7 +1328,7 @@
         },
         {
             "name": "haydenpierce/class-finder",
-            "version": "0.4.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/hpierce1102/ClassFinder.git",
@@ -1341,6 +1348,7 @@
                 "mikey179/vfsstream": "^1.6",
                 "phpunit/phpunit": "~9.0"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -1360,7 +1368,8 @@
             ],
             "description": "A library that can provide of a list of classes in a given namespace",
             "support": {
-                "issues": "https://gitlab.com/api/v4/projects/7670051/issues"
+                "issues": "https://gitlab.com/hpierce1102/ClassFinder/-/issues",
+                "source": "https://gitlab.com/hpierce1102/ClassFinder/-/tree/0.4.3"
             },
             "time": "2021-01-05T20:50:49+00:00"
         },
@@ -1550,12 +1559,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/serializable-closure.git",
-                "reference": "bfbc6c8e85240d08d8324be3eae13b7563224a91"
+                "reference": "67ba9f1eae0d883b89177016a904cde6fd4f4856"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/bfbc6c8e85240d08d8324be3eae13b7563224a91",
-                "reference": "bfbc6c8e85240d08d8324be3eae13b7563224a91",
+                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/67ba9f1eae0d883b89177016a904cde6fd4f4856",
+                "reference": "67ba9f1eae0d883b89177016a904cde6fd4f4856",
                 "shasum": ""
             },
             "require": {
@@ -1602,7 +1611,7 @@
                 "issues": "https://github.com/laravel/serializable-closure/issues",
                 "source": "https://github.com/laravel/serializable-closure"
             },
-            "time": "2022-03-17T10:22:48+00:00"
+            "time": "2022-03-23T12:36:47+00:00"
         },
         {
             "name": "league/commonmark",
@@ -5152,137 +5161,6 @@
                 }
             ],
             "time": "2021-11-09T10:57:15+00:00"
-        },
-        {
-            "name": "spatie/laravel-package-tools",
-            "version": "1.11.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/laravel-package-tools.git",
-                "reference": "baeb3df0ebb3a541394fdaf8cbe6115bf4034a59"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/baeb3df0ebb3a541394fdaf8cbe6115bf4034a59",
-                "reference": "baeb3df0ebb3a541394fdaf8cbe6115bf4034a59",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "^7.0|^8.0|^9.0",
-                "php": "^7.4|^8.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.4",
-                "orchestra/testbench": "^5.0|^6.23|^7.0",
-                "phpunit/phpunit": "^9.4",
-                "spatie/test-time": "^1.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\LaravelPackageTools\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Tools for creating Laravel packages",
-            "homepage": "https://github.com/spatie/laravel-package-tools",
-            "keywords": [
-                "laravel-package-tools",
-                "spatie"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/laravel-package-tools/issues",
-                "source": "https://github.com/spatie/laravel-package-tools/tree/1.11.3"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/spatie",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-03-15T20:01:36+00:00"
-        },
-        {
-            "name": "spatie/laravel-query-builder",
-            "version": "5.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/laravel-query-builder.git",
-                "reference": "2970e54b04306a6de586d23ac3e0bab994ef645a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-query-builder/zipball/2970e54b04306a6de586d23ac3e0bab994ef645a",
-                "reference": "2970e54b04306a6de586d23ac3e0bab994ef645a",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "^9.0",
-                "illuminate/http": "^9.0",
-                "illuminate/support": "^9.0",
-                "php": "^8.0",
-                "spatie/laravel-package-tools": "^1.11"
-            },
-            "require-dev": {
-                "ext-json": "*",
-                "mockery/mockery": "^1.4",
-                "orchestra/testbench": "^7.0",
-                "pestphp/pest": "^1.20",
-                "spatie/laravel-ray": "^1.28"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Spatie\\QueryBuilder\\QueryBuilderServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\QueryBuilder\\": "src",
-                    "Spatie\\QueryBuilder\\Database\\Factories\\": "database/factories"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alex Vanderbist",
-                    "email": "alex@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Easily build Eloquent queries from API requests",
-            "homepage": "https://github.com/spatie/laravel-query-builder",
-            "keywords": [
-                "laravel-query-builder",
-                "spatie"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/laravel-query-builder/issues",
-                "source": "https://github.com/spatie/laravel-query-builder"
-            },
-            "funding": [
-                {
-                    "url": "https://spatie.be/open-source/support-us",
-                    "type": "custom"
-                }
-            ],
-            "time": "2022-03-18T07:44:25+00:00"
         },
         {
             "name": "spatie/laravel-ray",
