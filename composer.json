@@ -30,8 +30,18 @@
   "require-dev": {
     "berthott/laravel-api-cache": "^1.0|@dev",
     "berthott/laravel-crudable": "^1.0|@dev",
-    "orchestra/testbench": "^6.0",
+    "orchestra/testbench": "^7.0",
     "phpunit/phpunit": "^9.5",
-    "doctrine/dbal": "^3.1"
-  }
+    "doctrine/dbal": "^3.3"
+  },
+  "repositories": [
+      {
+          "type": "path",
+          "url": "../../laravel_packages/laravel-api-cache"
+      },
+      {
+          "type": "path",
+          "url": "../../laravel_packages/laravel-crudable"
+      }
+  ]
 }
