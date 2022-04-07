@@ -2,7 +2,7 @@
 
 namespace berthott\Permissions\Models\Traits;
 
-trait IgnorePermissions
+trait IgnorePermissionRoutes
 {
     /**
      * Only ignore the following actions

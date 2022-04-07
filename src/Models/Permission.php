@@ -48,4 +48,12 @@ class Permission extends Model
 
         return $ret;
     }
+    
+    /**
+     * Get the routes associated with this permission.
+     */
+    public function routes()
+    {
+        return $this->hasMany(PermissionRoute::class);
+    }
 }

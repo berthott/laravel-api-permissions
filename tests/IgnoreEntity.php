@@ -3,12 +3,12 @@
 namespace berthott\Permissions\Tests;
 
 use berthott\Crudable\Models\Traits\Crudable;
-use berthott\Permissions\Models\Traits\IgnorePermissions;
+use berthott\Permissions\Models\Traits\IgnorePermissionRoutes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class IgnoreEntity extends Authenticatable
 {
-    use Crudable, IgnorePermissions;
+    use Crudable, IgnorePermissionRoutes;
 
     /**
      * The attributes that are mass assignable.

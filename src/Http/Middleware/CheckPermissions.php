@@ -2,13 +2,13 @@
 
 namespace berthott\Permissions\Http\Middleware;
 
-use berthott\Permissions\Facades\IgnorePermissions;
+use berthott\Permissions\Facades\IgnorePermissionRoutes;
 use berthott\Permissions\Facades\PermissionsHelper;
+use berthott\Permissions\Models\PermissionRoute;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Arr;
 
 class CheckPermissions
 {
@@ -19,12 +19,15 @@ class CheckPermissions
     {
         $user = Auth::user();
         $routeName = Route::currentRouteName();
-        $hasDirectPermissions = PermissionsHelper::hasTrait($user, 'berthott\Permissions\Models\Traits\HasPermissions');
-        $hasRolePermissions = PermissionsHelper::hasTrait($user, 'berthott\Permissions\Models\Traits\HasRoles');
-        $ignorePermissions = IgnorePermissions::isIgnored($routeName);
+        $ignorePermissions = IgnorePermissionRoutes::isIgnored($routeName);
+        if (!$ignorePermissions) {
+            $permission = PermissionRoute::fromRoute($routeName)->permission->name;
+            $hasDirectPermissions = PermissionsHelper::hasTrait($user, 'berthott\Permissions\Models\Traits\HasPermissions');
+            $hasRolePermissions = PermissionsHelper::hasTrait($user, 'berthott\Permissions\Models\Traits\HasRoles');
+        }
         if ($ignorePermissions ||
-            $hasRolePermissions && $user->hasRoleOrDirectPermissions($routeName) ||
-            $hasDirectPermissions && $user->hasPermissions($routeName)) {
+            $hasRolePermissions && $user->hasRoleOrDirectPermissions($permission) ||
+            $hasDirectPermissions && $user->hasPermissions($permission)) {
             return $next($request);
         }
 

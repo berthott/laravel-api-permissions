@@ -2,7 +2,7 @@
 
 namespace berthott\Permissions\Http\Controllers;
 
-use berthott\Permissions\Facades\IgnorePermissions;
+use berthott\Permissions\Facades\IgnorePermissionRoutes;
 use berthott\Permissions\Models\Permission;
 use Illuminate\Routing\Controller;
 
@@ -16,7 +16,7 @@ class PermissionController extends Controller
     public function index()
     {
         return Permission::all()->filter(function ($permission) {
-            return !IgnorePermissions::isIgnored($permission->name);
+            return !IgnorePermissionRoutes::isIgnored($permission->name);
         })->values();
     }
 }

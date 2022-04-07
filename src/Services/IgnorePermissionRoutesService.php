@@ -8,9 +8,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 
-const CACHE_KEY = 'IgnorePermissionsService-Cache-Key';
+const CACHE_KEY = 'IgnorePermissionRoutesService-Cache-Key';
 
-class IgnorePermissionsService
+class IgnorePermissionRoutesService
 {
     /**
      * Collection with all classes.
@@ -44,7 +44,7 @@ class IgnorePermissionsService
             foreach (is_array($namespaces) ? $namespaces : [$namespaces] as $namespace) {
                 foreach (ClassFinder::getClassesInNamespace($namespace, ClassFinder::RECURSIVE_MODE) as $class) {
                     foreach (class_uses_recursive($class) as $trait) {
-                        if ('berthott\Permissions\Models\Traits\IgnorePermissions' == $trait) {
+                        if ('berthott\Permissions\Models\Traits\IgnorePermissionRoutes' == $trait) {
                             array_push($classes, $class);
                         }
                     }

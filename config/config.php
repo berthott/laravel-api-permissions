@@ -40,7 +40,7 @@ return [
     | Actions to ignore
     |--------------------------------------------------------------------------
     |
-    | Defines an array of actions that should be irgnored by default.
+    | Defines an array of actions that should be ignored by default.
     |
     */
 

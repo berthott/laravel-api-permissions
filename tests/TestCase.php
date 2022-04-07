@@ -5,8 +5,8 @@ namespace berthott\Permissions\Tests;
 use berthott\ApiCache\ApiCacheServiceProvider;
 use berthott\Crudable\CrudableServiceProvider;
 use berthott\Permissions\ApiPermissionsServiceProvider;
+use berthott\Permissions\Facades\PermissionsHelper;
 use berthott\Permissions\Models\Role;
-use Database\Seeders\PermissionTableSeeder;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +17,7 @@ abstract class TestCase extends BaseTestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->seed(PermissionTableSeeder::class);
+        PermissionsHelper::buildRoutePermissions();
     }
 
     protected function getPackageProviders($app)
@@ -67,6 +67,7 @@ abstract class TestCase extends BaseTestCase
         (new \CreateRoleUserTable)->up();
         (new \CreatePermissionsTable)->up();
         (new \CreatePermissionablesTable)->up();
+        (new \CreatePermissionRoutesTable)->up();
     }
 
     public static function createUserWithPermissions($permissions = '', $except = []): User

@@ -5,7 +5,7 @@ namespace berthott\Permissions;
 use berthott\Permissions\Helpers\PermissionsHelper;
 use berthott\Permissions\Http\Controllers\PermissionController;
 use berthott\Permissions\Http\Middleware\CheckPermissions;
-use berthott\Permissions\Services\IgnorePermissionsService;
+use berthott\Permissions\Services\IgnorePermissionRoutesService;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -24,8 +24,8 @@ class ApiPermissionsServiceProvider extends ServiceProvider
         $this->app->singleton('PermissionsHelper', function () {
             return new PermissionsHelper();
         });
-        $this->app->singleton('IgnorePermissions', function () {
-            return new IgnorePermissionsService();
+        $this->app->singleton('IgnorePermissionRoutes', function () {
+            return new IgnorePermissionRoutesService();
         });
     }
 
@@ -40,9 +40,9 @@ class ApiPermissionsServiceProvider extends ServiceProvider
         ], 'config');
 
         // publish seed
-        $this->publishes([
+        /* $this->publishes([
             __DIR__.'/../database/seeders/PermissionTableSeeder.php' => database_path('seeders/PermissionTableSeeder.php'),
-        ], 'seeders');
+        ], 'seeders'); */
 
         // publish migrations
         /* $this->publishes([
