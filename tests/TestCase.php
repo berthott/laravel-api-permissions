@@ -7,6 +7,7 @@ use berthott\Crudable\CrudableServiceProvider;
 use berthott\Permissions\ApiPermissionsServiceProvider;
 use berthott\Permissions\Facades\PermissionsHelper;
 use berthott\Permissions\Models\Role;
+use berthott\Scopeable\ScopeableServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
@@ -25,7 +26,8 @@ abstract class TestCase extends BaseTestCase
         return [
           ApiPermissionsServiceProvider::class,
           ApiCacheServiceProvider::class,
-          CrudableServiceProvider::class
+          CrudableServiceProvider::class,
+          ScopeableServiceProvider::class,
       ];
     }
 
