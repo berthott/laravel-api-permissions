@@ -7,6 +7,7 @@ use berthott\Permissions\Models\Permission;
 use berthott\Permissions\Models\PermissionRoute;
 use berthott\Permissions\Tests\TestCase;
 use Exception;
+use Illuminate\Support\Facades\Route;
 
 const MAPPING = [
     'newName' => ['users.index'],
@@ -22,10 +23,36 @@ const MAPPING = [
 
 class PermissionSeedingTest extends TestCase
 {
+    public function test_route_exist(): void
+    {
+        $expectedRoutes = [
+            'permissions.index',
+        ];
+        $registeredRoutes = array_keys(Route::getRoutes()->getRoutesByName());
+        foreach ($expectedRoutes as $route) {
+            $this->assertContains($route, $registeredRoutes);
+        }
+    }
+
     public function test_getMappedPermissionName_valid_route(): void
     {
         $this->expectException(Exception::class);
         PermissionRoute::getMappedPermissionName('*.wrong');
+    }
+
+    public function test_permission_index(): void
+    {
+        PermissionsHelper::resetTables();
+        PermissionsHelper::buildRoutePermissions(MAPPING);
+        $response = collect($this->get(route('permissions.index'))
+            ->assertSuccessful()
+            ->assertJsonFragment(['name' => 'newName'])
+            ->assertJsonFragment(['name' => 'anotherName'])
+            ->assertJsonFragment(['name' => 'users.destroy'])
+            ->assertJsonMissing(['name' => 'users.destroy_many'])->json());
+        $p = $response->where('name', 'users.destroy')->first();
+        $r = collect($p['routes'])->whereIn('route', ['users.destroy_many', 'users.destroy'])->count();
+        $this->assertEquals($r, 2);
     }
 
     public function test_getMappedPermissionName_no_mapping(): void

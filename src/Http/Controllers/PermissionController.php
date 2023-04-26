@@ -17,6 +17,11 @@ class PermissionController extends Controller
     {
         return Permission::all()->filter(function ($permission) {
             return !IgnorePermissionRoutes::isIgnored($permission->name);
+        })->map(function (Permission $permission) {
+            if ($permission->routes->count() <= 1) {
+                $permission->unsetRelation('routes');
+            }
+            return $permission;
         })->values();
     }
 }
