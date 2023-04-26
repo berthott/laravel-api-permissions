@@ -60,7 +60,8 @@ class IgnorePermissionRoutesService
     public function isIgnored(string $routeName): bool
     {
         $routeArray = explode('.', $routeName);
-        if (in_array($routeArray[1], config('permissions.ignoreActions'))) {
+        $action = array_key_exists(1, $routeArray) ? $routeArray[1] : null;
+        if (in_array($action, config('permissions.ignoreActions'))) {
             return true;
         }
 
@@ -69,11 +70,9 @@ class IgnorePermissionRoutesService
         }
 
         $model = Str::studly(Str::singular($routeArray[0]));
-        if ($modelWithNamespace = $this->classes->first(function ($class) use ($model) {
-            return Arr::last(explode('\\', $class)) === $model;
-        })) {
+        if ($modelWithNamespace = $this->classes->first(fn ($class) => Arr::last(explode('\\', $class)) === $model)) {
             if (count($modelWithNamespace::ignoreOnly())) {
-                return in_array($routeArray[1], $modelWithNamespace::ignoreOnly());
+                return in_array($action, $modelWithNamespace::ignoreOnly());
             }
             return true;
         }
