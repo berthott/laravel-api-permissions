@@ -32,6 +32,7 @@
     "berthott/laravel-crudable": "^3.0",
     "orchestra/testbench": "^8.0",
     "phpunit/phpunit": "^10.0",
-    "doctrine/dbal": "^3.3"
+    "doctrine/dbal": "^3.3",
+    "berthott/laravel-targetable": "^3.0"
   }
 }

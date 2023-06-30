@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a46c510ca0081eab62a69c711b3d6844",
+    "content-hash": "665ec4f06395dfe7042acbb2a2b16f64",
     "packages": [],
     "packages-dev": [
         {
@@ -160,6 +160,58 @@
                 "source": "https://github.com/berthott/laravel-scopeable/tree/3.0.0"
             },
             "time": "2023-02-16T08:09:34+00:00"
+        },
+        {
+            "name": "berthott/laravel-targetable",
+            "version": "3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/berthott/laravel-targetable.git",
+                "reference": "5ffd616b57241b0b8809e739ab3622f7541b88fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/berthott/laravel-targetable/zipball/5ffd616b57241b0b8809e739ab3622f7541b88fd",
+                "reference": "5ffd616b57241b0b8809e739ab3622f7541b88fd",
+                "shasum": ""
+            },
+            "require": {
+                "haydenpierce/class-finder": "^0.4.3"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^3.3",
+                "orchestra/testbench": "^8.0",
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "berthott\\Crudable\\CrudableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "berthott\\Targetable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Bladt",
+                    "email": "berthott@web.de"
+                }
+            ],
+            "description": "Laravel Helper for targeting classes by their traits",
+            "support": {
+                "issues": "https://github.com/berthott/laravel-targetable/issues",
+                "source": "https://github.com/berthott/laravel-targetable/tree/3.0.3"
+            },
+            "time": "2023-06-30T08:54:31+00:00"
         },
         {
             "name": "brick/math",

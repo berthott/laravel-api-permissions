@@ -1,5 +1,7 @@
 <?php
 
+use HaydenPierce\ClassFinder\ClassFinder;
+
 return [
 
     /*
@@ -7,18 +9,19 @@ return [
     | Route Middleware Configuration
     |--------------------------------------------------------------------------
     |
-    | Configurations for the route.
+    | An array of all middlewares to be applied to all of the generated routes.
     |
     */
 
-    'middleware' => ['api'],
+    'middleware' => [],
 
     /*
     |--------------------------------------------------------------------------
     | Model Namespace Configuration
     |--------------------------------------------------------------------------
     |
-    | Defines one or multiple model namespaces.
+    | String or array with one ore multiple namespaces that should be monitored 
+    | for the configured trait.
     |
     */
 
@@ -26,10 +29,25 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | API Prefix
+    | Model Namespace Search Option
     |--------------------------------------------------------------------------
     |
-    | Defines the api prefix.
+    | Defines the search mode for the namespaces. ClassFinder::STANDARD_MODE
+    | will only find the exact matching namespace, ClassFinder::RECURSIVE_MODE
+    | will find all subnamespaces.
+    | 
+    | Beware: ClassFinder::RECURSIVE_MODE might cause some testing issues.
+    |
+    */
+
+    'namespace_mode' => ClassFinder::RECURSIVE_MODE,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Route Prefix
+    |--------------------------------------------------------------------------
+    |
+    | Defines the route prefix.
     |
     */
 
