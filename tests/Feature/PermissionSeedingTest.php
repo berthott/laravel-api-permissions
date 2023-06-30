@@ -2,7 +2,7 @@
 
 namespace berthott\Permissions\Tests\Feature;
 
-use berthott\Permissions\Facades\PermissionsHelper;
+use Facades\berthott\Permissions\Helpers\PermissionsHelper;
 use berthott\Permissions\Models\Permission;
 use berthott\Permissions\Models\PermissionRoute;
 use berthott\Permissions\Tests\TestCase;

@@ -2,10 +2,8 @@
 
 namespace berthott\Permissions;
 
-use berthott\Permissions\Helpers\PermissionsHelper;
 use berthott\Permissions\Http\Controllers\PermissionController;
 use berthott\Permissions\Http\Middleware\CheckPermissions;
-use berthott\Permissions\Services\IgnorePermissionRoutesService;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -19,14 +17,6 @@ class ApiPermissionsServiceProvider extends ServiceProvider
     {
         // add config
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'permissions');
-
-        // bind singleton
-        $this->app->singleton('PermissionsHelper', function () {
-            return new PermissionsHelper();
-        });
-        $this->app->singleton('IgnorePermissionRoutes', function () {
-            return new IgnorePermissionRoutesService();
-        });
     }
 
     /**

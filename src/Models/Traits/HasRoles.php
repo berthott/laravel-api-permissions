@@ -2,7 +2,7 @@
 
 namespace berthott\Permissions\Models\Traits;
 
-use berthott\Permissions\Facades\PermissionsHelper;
+use Facades\berthott\Permissions\Helpers\PermissionsHelper;
 use berthott\Permissions\Models\Role;
 
 trait HasRoles

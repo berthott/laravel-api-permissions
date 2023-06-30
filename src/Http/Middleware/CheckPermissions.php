@@ -2,8 +2,8 @@
 
 namespace berthott\Permissions\Http\Middleware;
 
-use berthott\Permissions\Facades\IgnorePermissionRoutes;
-use berthott\Permissions\Facades\PermissionsHelper;
+use Facades\berthott\Permissions\Services\IgnorePermissionRoutesService;
+use Facades\berthott\Permissions\Helpers\PermissionsHelper;
 use berthott\Permissions\Models\PermissionRoute;
 use Closure;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class CheckPermissions
     {
         $user = Auth::user();
         $routeName = Route::currentRouteName();
-        $ignorePermissions = IgnorePermissionRoutes::isIgnored($routeName);
+        $ignorePermissions = IgnorePermissionRoutesService::isIgnored($routeName);
         if (!$ignorePermissions) {
             $permission = PermissionRoute::fromRoute($routeName)->permission->name;
             $hasDirectPermissions = PermissionsHelper::hasTrait($user, 'berthott\Permissions\Models\Traits\HasPermissions');

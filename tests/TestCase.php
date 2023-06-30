@@ -5,7 +5,7 @@ namespace berthott\Permissions\Tests;
 use berthott\ApiCache\ApiCacheServiceProvider;
 use berthott\Crudable\CrudableServiceProvider;
 use berthott\Permissions\ApiPermissionsServiceProvider;
-use berthott\Permissions\Facades\PermissionsHelper;
+use Facades\berthott\Permissions\Helpers\PermissionsHelper;
 use berthott\Permissions\Models\Role;
 use berthott\Scopeable\ScopeableServiceProvider;
 use Illuminate\Database\Schema\Blueprint;

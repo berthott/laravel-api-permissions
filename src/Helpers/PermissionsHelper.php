@@ -2,7 +2,7 @@
 
 namespace berthott\Permissions\Helpers;
 
-use berthott\Permissions\Facades\IgnorePermissionRoutes;
+use Facades\berthott\Permissions\Services\IgnorePermissionRoutesService;
 use berthott\Permissions\Models\Permission;
 use berthott\Permissions\Models\PermissionRoute;
 use Illuminate\Support\Facades\Route;
@@ -46,7 +46,7 @@ class PermissionsHelper
     {
         foreach (Route::getRoutes() as $route) {
             if (!in_array('permissions', $route->action['middleware']) ||
-                IgnorePermissionRoutes::isIgnored($route->getName())) {
+                IgnorePermissionRoutesService::isIgnored($route->getName())) {
                 continue;
             }
             $permission = self::getOrCreatePermission($route->getName(), $mapping);
