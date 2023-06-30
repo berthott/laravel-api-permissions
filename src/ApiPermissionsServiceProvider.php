@@ -8,6 +8,9 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Register the libraries features with the laravel application.
+ */
 class ApiPermissionsServiceProvider extends ServiceProvider
 {
     /**
@@ -28,16 +31,6 @@ class ApiPermissionsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/config.php' => config_path('permissions.php'),
         ], 'config');
-
-        // publish seed
-        /* $this->publishes([
-            __DIR__.'/../database/seeders/PermissionTableSeeder.php' => database_path('seeders/PermissionTableSeeder.php'),
-        ], 'seeders'); */
-
-        // publish migrations
-        /* $this->publishes([
-            __DIR__ . '/../database/migrations/PermissionTableSeeder.php' => database_path('migrations/PermissionTableSeeder.php'),
-        ], 'migrations'); */
 
         // load migrations
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');

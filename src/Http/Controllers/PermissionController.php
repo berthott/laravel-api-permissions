@@ -6,10 +6,15 @@ use Facades\berthott\Permissions\Services\IgnorePermissionRoutesService;
 use berthott\Permissions\Models\Permission;
 use Illuminate\Routing\Controller;
 
+/**
+ * Permission API endpoint implementation.
+ */
 class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * 
+     * Don't show ignored routes.
      *
      * @return \Illuminate\Http\Response
      */

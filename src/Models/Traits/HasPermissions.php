@@ -4,10 +4,18 @@ namespace berthott\Permissions\Models\Traits;
 
 use berthott\Permissions\Models\Permission;
 
+/**
+ * Trait to add the permissions functionality.
+ */
 trait HasPermissions
 {
     /**
-     * Add permissions to this model.
+     * Add one or multiple permissions to this model.
+     * 
+     * @param mixed $permissions one or multiple permissions to add
+     * @param mixed $except one or multiple permissions that should be excluded from the $permissions array.
+     * 
+     * @api
      */
     public function addPermissions(mixed $permissions, mixed $except = []): void
     {
@@ -22,7 +30,12 @@ trait HasPermissions
     }
 
     /**
-     * Has this role the given permissions.
+     * Has this model the given permissions.
+     * 
+     * @param mixed $permissions one or multiple permissions to check
+     * @param bool $any if multiple permissions are checked this indicates whether to look for all or one available permission.
+     * 
+     * @api
      */
     public function hasPermissions(mixed $permissions, bool $any = true)
     {
@@ -41,6 +54,8 @@ trait HasPermissions
 
     /**
      * The permissions that belong to the model.
+     * 
+     * @api
      */
     public function permissions()
     {

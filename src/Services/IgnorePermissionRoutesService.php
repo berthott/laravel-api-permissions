@@ -21,7 +21,7 @@ class IgnorePermissionRoutesService extends TargetableService
     }
 
     /**
-     * Get the table ignored?
+     * Should the given route be ignored from the permissions.
      */
     public function isIgnored(string $routeName): bool
     {

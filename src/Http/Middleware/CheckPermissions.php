@@ -10,10 +10,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+/**
+ * Middleware to handle the check the permissions.
+ */
 class CheckPermissions
 {
     /**
      * Handle an incoming request.
+     * 
+     * If the route is not ignored, check for direct and role permissions.
      */
     public function handle(Request $request, Closure $next): mixed
     {

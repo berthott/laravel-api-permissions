@@ -8,14 +8,17 @@ use berthott\Permissions\Models\PermissionRoute;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * Helper for seeding the permissions table.
+ * 
+ * @api
+ */
 class PermissionsHelper
 {
     /**
      * Find weather the class uses a trait.
-     *
-     * @param string|object $class
      */
-    public static function hasTrait($class, string $trait): bool
+    public static function hasTrait(string|object $class, string $trait): bool
     {
         foreach (class_uses_recursive($class) as $t) {
             if ($t == $trait) {
@@ -28,6 +31,8 @@ class PermissionsHelper
 
     /**
      * Reset permissions and permission_routes Table
+     * 
+     * @api
      */
     public static function resetTables()
     {
@@ -41,6 +46,24 @@ class PermissionsHelper
 
     /**
      * Build permissions for all routes.
+     * 
+     * Permissions will be added for all routes that use the `permissions` middleware.
+     * Ignored routes won't be added.
+     * 
+     * You may map specific route actions into a single permission adding a `$mapping` parameter.
+     * For example the following array would map all destroy and destroy_many route actions into
+     * a single destroy permission.
+     * 
+     * ```php
+     * [
+     *  '*.destroy' => [
+     *      '*.destroy',
+     *      '*.destroy_many'
+     *   ],
+     * ]
+     * ```
+     * 
+     * @api
      */
     public static function buildRoutePermissions(array $mapping = null)
     {
@@ -57,6 +80,9 @@ class PermissionsHelper
         }
     }
     
+    /**
+     * Get or create a permission
+     */
     private static function getOrCreatePermission(string $route, array $mapping = null): Permission
     {
         $permissionName = PermissionRoute::getMappedPermissionName($route, $mapping);
@@ -70,6 +96,12 @@ class PermissionsHelper
 
     /**
      * Build UI permissions.
+     * 
+     * UI permissions don't actually guard any backend route, but are added to the
+     * permissions table in order to be represented in the frontend. They can be
+     * checked by the frontend.
+     * 
+     * @api
      */
     public static function buildUiPermissions(array $routes)
     {

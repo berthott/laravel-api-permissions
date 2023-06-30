@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @mixin IdeHelperPermission
+ * The permission model
  */
 class Permission extends Model
 {
@@ -27,11 +27,12 @@ class Permission extends Model
     ];
 
     /**
-     * Get permissions from array.
+     * Get permissions from an array of route names.
      *
      * @param string|string[] $array
+     * @param bool $strict in strict mode the route name must match exactly. In non-strict mode the route name must be contained in the permission.
      */
-    public static function get($routeNames, bool $strict = false): Collection
+    public static function get(mixed $routeNames, bool $strict = false): Collection
     {
         if ('*' === $routeNames) {
             return self::all();

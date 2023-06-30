@@ -6,7 +6,9 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @mixin IdeHelperPermission
+ * A permission route maps a permission to a route.
+ * 
+ * This is necessary for route mapping.
  */
 class PermissionRoute extends Model
 {
@@ -35,13 +37,17 @@ class PermissionRoute extends Model
     }
 
     /**
-     * Get the permission name form a mapping. The mapping should look like this:
+     * Get the permission name form a mapping. 
+     * 
+     * The mapping should look like this:
+     * ```php
      * [
      *     '*.mapped' => [
-     *         '*.routAction1',
+     *         '*.routeAction1',
      *         '*.create',
      *     ],
      * ];
+     * ```
      */
     public static function getMappedPermissionName(string $route, array $mapping = null): string
     {

@@ -8,7 +8,7 @@ use berthott\Permissions\Models\Traits\HasPermissions;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @mixin IdeHelperRole
+ * The role moddel
  */
 class Role extends Model
 {
