@@ -14,19 +14,21 @@ trait HasPermissions
      * 
      * @param mixed $permissions one or multiple permissions to add
      * @param mixed $except one or multiple permissions that should be excluded from the $permissions array.
+     * @param mixed $action you can choose between the laravel functions 'attach' (default), 'sync' and 'syncWithoutDetach'.
      * 
      * @api
      */
-    public function addPermissions(mixed $permissions, mixed $except = []): void
+    public function addPermissions(mixed $permissions, mixed $except = [], string $action = 'attach'): void
     {
         if (!$permissions) {
             return;
         }
         $permissionModels = Permission::get($permissions);
         $exceptModels = Permission::get($except);
-        $this->permissions()->attach($permissionModels->filter(function ($permission) use ($exceptModels) {
+        $models = $permissionModels->filter(function ($permission) use ($exceptModels) {
             return !$exceptModels->find($permission->id);
-        }));
+        });
+        $this->permissions()->$action($models);
     }
 
     /**

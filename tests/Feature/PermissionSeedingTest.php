@@ -134,4 +134,30 @@ class PermissionSeedingTest extends TestCase
         $user = $this->createUserWithPermissions('newName');
         $this->actingAs($user)->get(route('users.show', ['user' => $user->id]))->assertForbidden();
     }
+
+    public function test_sync(): void
+    {
+        PermissionsHelper::resetTables();
+        PermissionsHelper::buildRoutePermissions(MAPPING);
+        $user = $this->createUserWithPermissions('newName');
+        $this->actingAs($user)->get(route('users.index'))->assertSuccessful();
+        $this->actingAs($user)->get(route('users.show', ['user' => $user->id]))->assertForbidden();
+        $user->roles->first()->addPermissions('anotherName', except: [], action: 'sync');
+        $user->load('roles');
+        $this->actingAs($user)->get(route('users.index'))->assertForbidden();
+        $this->actingAs($user)->get(route('users.show', ['user' => $user->id]))->assertSuccessful();
+    }
+
+    public function test_syncWithoutDetaching(): void
+    {
+        PermissionsHelper::resetTables();
+        PermissionsHelper::buildRoutePermissions(MAPPING);
+        $user = $this->createUserWithPermissions('newName');
+        $this->actingAs($user)->get(route('users.index'))->assertSuccessful();
+        $this->actingAs($user)->get(route('users.show', ['user' => $user->id]))->assertForbidden();
+        $user->roles->first()->addPermissions('anotherName', except: [], action: 'syncWithoutDetaching');
+        $user->load('roles');
+        $this->actingAs($user)->get(route('users.index'))->assertSuccessful();
+        $this->actingAs($user)->get(route('users.show', ['user' => $user->id]))->assertSuccessful();
+    }
 }
