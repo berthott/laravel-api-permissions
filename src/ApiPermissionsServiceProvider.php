@@ -32,8 +32,15 @@ class ApiPermissionsServiceProvider extends ServiceProvider
             __DIR__.'/../config/config.php' => config_path('permissions.php'),
         ], 'config');
 
+        // publish config
+        $this->publishes([
+            __DIR__.'/../database/migrations' => database_path('migrations'),
+        ], 'migrations');
+
         // load migrations
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        if (config('permissions.migrate')) {
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        }
 
         // add routes
         Route::group($this->routeConfiguration(), function () {

@@ -26,7 +26,11 @@ $ composer require berthott/laravel-api-permissions
       ]
       ```
     * `PermissionsHelper::buildUiPermissions()` will add UI permissions, that will only be handle by the frontend.
-* The package will migrate five tables for you: `roles`, `role_user`, `permissions`, `permissionables` and `permission_routes`.
+* If the `migrate` option is `true` the package will migrate five tables for you: `roles`, `role_user`, `permissions`, `permissionables` and `permission_routes`.
+* If the `migrate` option is `false` and you want to write your own migration you can have look at the default migrations by running
+```sh
+$ php artisan vendor:publish --provider="berthott\Permissions\ApiPermissionsServiceProvider" --tag="migrations"
+```
 * You can add `permissions` to your `User` model by adding the `HasPermissions` trait.
 * You can add `roles` to you `User` model by adding the `HasRoles` trait.
 * You can use either or both of the above options.
@@ -45,6 +49,7 @@ $ php artisan vendor:publish --provider="berthott\Permissions\ApiPermissionsServ
 * General Package Configuration
   * `middleware`: An array of all middlewares to be applied to all of the generated routes. Defaults to `[]`.
   * `ignoreActions`: Defines an array of actions that should be ignored by default. Defaults to `[]`.
+  * `migrate`: Defines wether or not to migrate standard tables.. Defaults to `true`.
 
 ## Compatibility
 
