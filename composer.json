@@ -11,7 +11,8 @@
   "minimum-stability": "dev",
   "autoload" : {
       "psr-4" : {
-          "berthott\\Permissions\\": "src"
+          "berthott\\Permissions\\": "src",
+          "berthott\\Permissions\\Database\\Factories\\": "database/factories"
       }
   },
   "autoload-dev": {
