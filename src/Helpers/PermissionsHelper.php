@@ -68,7 +68,9 @@ class PermissionsHelper
     public static function buildRoutePermissions(array $mapping = null)
     {
         foreach (Route::getRoutes() as $route) {
-            if (!in_array('permissions', $route->action['middleware']) ||
+            $middlewares = $route->action['middleware'];
+            if (!is_array($middlewares) ||
+                !in_array('permissions', $middlewares) ||
                 IgnorePermissionRoutesService::isIgnored($route->getName())) {
                 continue;
             }
