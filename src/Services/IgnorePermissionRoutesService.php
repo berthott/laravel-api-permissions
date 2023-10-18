@@ -40,6 +40,9 @@ class IgnorePermissionRoutesService extends TargetableService
             if (count($modelWithNamespace::ignoreOnly())) {
                 return in_array($action, $modelWithNamespace::ignoreOnly());
             }
+            if (count($modelWithNamespace::doNotIgnore())) {
+                return !in_array($action, $modelWithNamespace::doNotIgnore());
+            }
             return true;
         }
         return false;

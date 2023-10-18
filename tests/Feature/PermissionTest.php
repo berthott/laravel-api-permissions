@@ -3,11 +3,11 @@
 namespace berthott\Permissions\Tests\Feature;
 
 use berthott\Permissions\Models\Permission;
+use berthott\Permissions\Tests\DoNotIgnoreEntity;
 use berthott\Permissions\Tests\Entity;
 use berthott\Permissions\Tests\IgnoreEntity;
 use Illuminate\Support\Facades\Route;
 use berthott\Permissions\Tests\TestCase;
-use Database\Seeders\PermissionTableSeeder;
 use Illuminate\Support\Str;
 
 class PermissionTest extends TestCase
@@ -91,20 +91,42 @@ class PermissionTest extends TestCase
         };
     }
 
+    public function test_all_do_not_ignore_entities_permissions_succeed()
+    {
+        $permissions = Permission::where('name', 'like', 'do_not_ignore_entities%')->get()->pluck('name')->toArray();
+        $user = $this->createUserWithPermissions();
+        $do_not_ignore_entity = DoNotIgnoreEntity::create(['name' => 'Test']);
+        foreach ($permissions as $permission) {
+            $route = Route::getRoutes()->getByName($permission);
+            foreach ($route->methods() as $method) {
+                $response = $this->actingAs($user)->json($method, route($permission, ['do_not_ignore_entity' => $do_not_ignore_entity->id, 'name' => Str::random(5)]));
+                if (!in_array(explode('.', $route->getName())[1], DoNotIgnoreEntity::doNotIgnore())) {
+                    $response->assertSuccessful();
+                } else {
+                    $response->assertForbidden();
+                }
+            }
+        };
+    }
+
     public function test_permissions_route()
     {
         $this->get(route('permissions.index'))
             ->assertStatus(200)
             ->assertJsonFragment(['name' => 'users.index'])
             ->assertJsonFragment(['name' => 'entities.index'])
+            ->assertJsonFragment(['name' => 'do_not_ignore_entities.index'])
             ->assertJsonMissing(['name' => 'ignore_entities.index'])
+            ->assertJsonMissing(['name' => 'do_not_ignore_entities.show'])
             ->assertJsonMissing(['name' => 'users.schema']);
     }
 
     public function test_permissions_seeder()
     {
         $this->assertDatabaseHas('permissions', ['name' => 'entities.index']);
+        $this->assertDatabaseHas('permissions', ['name' => 'do_not_ignore_entities.index']);
         $this->assertDatabaseMissing('permissions', ['name' => 'ignore_entities.index']);
+        $this->assertDatabaseMissing('permissions', ['name' => 'do_not_ignore_entities.show']);
     }
 
     public function test_strict_permissions_too_much()

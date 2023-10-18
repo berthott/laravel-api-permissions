@@ -58,6 +58,11 @@ abstract class TestCase extends BaseTestCase
             $table->string('name');
             $table->timestamps();
         });
+        Schema::create('do_not_ignore_entities', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->timestamps();
+        });
     }
 
     private function setUpMigrationTables(): void

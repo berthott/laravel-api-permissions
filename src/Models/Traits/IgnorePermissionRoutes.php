@@ -22,4 +22,20 @@ trait IgnorePermissionRoutes
     {
         return [];
     }
+
+    /**
+     * Do not ignore the following actions.
+     * 
+     * Only applied if ignore only is empty.
+     *  
+     * **optional**
+     * 
+     * Defaults to `[]`.
+     * 
+     * @api
+     */
+    public static function doNotIgnore(): array
+    {
+        return [];
+    }
 }
