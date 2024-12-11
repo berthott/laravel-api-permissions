@@ -1,3 +1,5 @@
+![test workflow](https://github.com/berthott/laravel-api-permissions/actions/workflows/test.yml/badge.svg)
+
 # Laravel-API-Permissions
 
 A helper for API Permissions in Laravel. Protect all your routes with a single middleware.

@@ -28,6 +28,9 @@
           ]
       }
   },
+  "scripts": {
+        "test": "vendor/bin/phpunit"
+  },
   "require-dev": {
     "berthott/laravel-api-cache": "^3.0",
     "berthott/laravel-crudable": "^3.0",
