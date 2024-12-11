@@ -8,7 +8,6 @@
           "email": "berthott@web.de"
       }
   ],
-  "minimum-stability": "dev",
   "autoload" : {
       "psr-4" : {
           "berthott\\Permissions\\": "src",
